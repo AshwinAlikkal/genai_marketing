@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import utils
+import prompts
 
 def main():
     # Title of the app
@@ -41,7 +42,7 @@ def main():
                 df = utils.cluster_creation(df)
                 st.session_state.df = df  # Store the DataFrame in session state
                 st.session_state.file_uploaded = True
-                st.experimental_rerun()
+                st.rerun()
             except Exception as e:
                 st.error(f"Error processing file: {e}")
     else:
@@ -82,6 +83,8 @@ def main():
 
                 if st.button("Generate Image"):
                     st.session_state.stable_diffusion_prompt = edited_stable_diffusion_prompt
+                    edited_stable_diffusion_prompt += prompts.additional_image_instruction
+                    #st.write(edited_stable_diffusion_prompt)
                     try:
                         image = utils.image_generator(edited_stable_diffusion_prompt, image_llm)
                         st.image(image, use_column_width=True)
