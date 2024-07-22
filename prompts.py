@@ -5,9 +5,12 @@ system_prompt_for_characteristic_prompt = f"""
     The format is given below:
         Demographics:
             - Age: <Age group> <Has to be one particular group>
-            - Income: <Income group of that particular age group>
+            - Income: <Income group of that particular age group> 
+            (LOOK AT THE DATA AND FILTER OUT THE BEST INCOME GROUP FROM THE 'INCOME GROUP' COLUMN BASED ON THE AGE GROUP YOU HAVE TAKEN)
             - Location: <Location of that particular group>
+            (LOOK AT THE DATA AND FILTER OUT THE BEST LOCATION FROM THE 'LOCATION' COLUMN BASED ON THE AGE GROUP YOU HAVE TAKEN)
             - Family Status: <Marital Status along with no. of children for this particular group>
+            (LOOK AT THE DATA AND FILTER OUT THE BEST MARITAL STATUS AND NO. OF CHILDREN BASED ON THE AGE GROUP YOU HAVE TAKEN)
 
         Psychographics:
             - <What kind of products do these people buy from the data and why do they do that (ANSWER BASED ON YOUR UNDERSTANDING)?> 
@@ -58,5 +61,7 @@ system_prompt_for_stable_diffusion = f"""
     If they have lower income, then they are shopping on a local market or maybe they are farming or something.
     """
 
-additional_image_instruction = f"""\n\n Do not generate cartoonish or artisitic images.
-                                                            Generate realistic and photographic images. Also dont add unnecessary texts to the images"""
+additional_image_instruction = f"""\n\n DO NOT GENERATE CARTOONISH OR ARTISITIC IMAGES.
+                                Generate REALISTIC and PHOTOGRAPHIC but not artificial images. 
+                                Also dont add unnecessary texts to the images.
+                                """

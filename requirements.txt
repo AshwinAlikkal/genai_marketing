@@ -1,0 +1,6 @@
+pandas
+streamlit
+sklearn
+openai
+langchain-openai
+langchain
