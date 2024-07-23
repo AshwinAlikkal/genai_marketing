@@ -96,13 +96,13 @@ def main():
                     st.subheader(f"Characteristic Prompt for Segment {cluster_number}:")
                     st.code(st.session_state.characteristic_prompt, language="markdown")
 
-                    st.subheader(f"Stable Diffusion Prompt for Segment {cluster_number}:")
+                    st.subheader(f"Summarized Prompt for Segment {cluster_number}:")
                     if not st.session_state.stable_diffusion_prompt:
                         stable_diffusion_prompt = util.stable_diffusion_prompt_generation(st.session_state.characteristic_prompt, chat_llm)
                         st.session_state.stable_diffusion_prompt = stable_diffusion_prompt
 
                     edited_stable_diffusion_prompt = st.text_area(
-                        "Stable Diffusion Prompt",
+                        "Summarized Prompt",
                         st.session_state.stable_diffusion_prompt,
                         height=100
                     )
