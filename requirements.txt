@@ -1,8 +1,8 @@
 pandas==2.0.3
 streamlit==1.33.0
-sklearn==1.2.2
-openai==1.7.2
+scikit-learn==1.2.2
+openai
 langchain-openai
 langchain==0.1.4
-requests==2.31.0
+requests
 warnings
