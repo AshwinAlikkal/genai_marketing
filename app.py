@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import utils
+import util
 import prompts
 
 def main():
@@ -17,8 +17,8 @@ def main():
     )
 
     # Initialize chat and image models
-    chat_llm = utils.llm_chat_model()
-    image_llm = utils.llm_image_model()
+    chat_llm = util.llm_chat_model()
+    image_llm = util.llm_image_model()
 
     # Initialize session state
     if 'file_uploaded' not in st.session_state:
@@ -51,7 +51,7 @@ def main():
                         df = pd.read_excel(uploaded_file)
                     elif uploaded_file.name.endswith('.json'):
                         df = pd.read_json(uploaded_file)
-                    df = utils.cluster_creation(df)
+                    df = util.cluster_creation(df)
                     st.session_state.df = df  # Store the DataFrame in session state
                     st.session_state.file_uploaded = True
                     st.experimental_rerun()
@@ -74,7 +74,7 @@ def main():
                 cluster_data = df[df['Cluster'] == cluster_number]
 
                 if not st.session_state.characteristic_prompt:
-                    characteristic_prompt = utils.characteristic_prompt_generation(cluster_data, chat_llm)
+                    characteristic_prompt = util.characteristic_prompt_generation(cluster_data, chat_llm)
                     st.session_state.characteristic_prompt = characteristic_prompt
 
                 with col2:
@@ -98,7 +98,7 @@ def main():
 
                     st.subheader(f"Stable Diffusion Prompt for Segment {cluster_number}:")
                     if not st.session_state.stable_diffusion_prompt:
-                        stable_diffusion_prompt = utils.stable_diffusion_prompt_generation(st.session_state.characteristic_prompt, chat_llm)
+                        stable_diffusion_prompt = util.stable_diffusion_prompt_generation(st.session_state.characteristic_prompt, chat_llm)
                         st.session_state.stable_diffusion_prompt = stable_diffusion_prompt
 
                     edited_stable_diffusion_prompt = st.text_area(
@@ -113,7 +113,7 @@ def main():
                         edited_stable_diffusion_prompt += prompts.additional_image_instruction
                         try:
                             with st.spinner('Generating image...'):
-                                image = utils.image_generator(edited_stable_diffusion_prompt, image_llm)
+                                image = util.image_generator(edited_stable_diffusion_prompt, image_llm)
                                 st.image(image, use_column_width=True)
                         except Exception as e:
                             st.error(f"Error generating image: {e}")
