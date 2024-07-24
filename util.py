@@ -1,20 +1,22 @@
-import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import requests
 from openai import OpenAI
-from IPython.display import Image
 from PIL import Image
 from io import BytesIO
-import warnings
-warnings.filterwarnings("ignore")
 from langchain.schema import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 import prompts
 import config
 import plotly.graph_objects as go
 import streamlit as st
+
+from dotenv import load_dotenv,find_dotenv
+load_dotenv(find_dotenv())
+
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def llm_image_model():
