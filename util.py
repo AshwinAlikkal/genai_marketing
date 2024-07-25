@@ -146,7 +146,8 @@ def plot_box_plot(df, column, title, yaxis_title):
         yaxis_title=yaxis_title,
         boxmode='group',
         height=300,  # Adjust plot height if needed
-        margin=dict(t=40, b=40)
+        margin=dict(t=40, b=40),
+        showlegend=not (column in ['Age', 'Income'])  # Hide legend for Age and Income
     )
 
     st.plotly_chart(fig, use_container_width=True)

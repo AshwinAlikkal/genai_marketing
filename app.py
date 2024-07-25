@@ -198,17 +198,18 @@ def main():
                     st.session_state.stable_diffusion_prompt,
                     height=100
                 )
+                
 
-            with col5:
                 if st.button("Generate Image", help="Click to generate an image based on the edited prompt"):
-                    st.session_state.stable_diffusion_prompt = edited_stable_diffusion_prompt
-                    edited_stable_diffusion_prompt += prompts.additional_image_instruction
-                    try:
-                        with st.spinner('Generating image...'):
-                            image = util.image_generator(edited_stable_diffusion_prompt, image_llm)
-                            st.image(image, use_column_width=True)
-                    except Exception as e:
-                        st.error(f"Error generating image: {e}")
+                    with col5:
+                        st.session_state.stable_diffusion_prompt = edited_stable_diffusion_prompt
+                        edited_stable_diffusion_prompt += prompts.additional_image_instruction
+                        try:
+                            with st.spinner('Generating image...'):
+                                image = util.image_generator(edited_stable_diffusion_prompt, image_llm)
+                                st.image(image, use_column_width=True)
+                        except Exception as e:
+                            st.error(f"Error generating image: {e}")
         else:
             st.write("Select a segment to see the characteristic and Stable Diffusion prompts.")
 
