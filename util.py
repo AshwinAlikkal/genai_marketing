@@ -82,12 +82,16 @@ def stable_diffusion_prompt_generation(characteristic_prompt, llm):
 def plot_stacked_bar_chart(df, column, title, yaxis_title, is_channel=False, is_product=False, is_children=False):
     if is_channel:
         cluster_data = df.groupby('Cluster')[column].sum()
+        legend_title = "Purchase Channel"
     elif is_product:
         cluster_data = df.groupby('Cluster')[column].sum()
+        legend_title = "Products"
     elif is_children:
         cluster_data = df.groupby(['Cluster', column])[column].count().unstack().fillna(0)
+        legend_title = 'Total Children'
     else:
         cluster_data = df.groupby(['Cluster', column])[column].count().unstack().fillna(0)
+        legend_title = column
 
     cluster_pct = cluster_data.div(cluster_data.sum(axis=1), axis=0) * 100
 
@@ -105,7 +109,7 @@ def plot_stacked_bar_chart(df, column, title, yaxis_title, is_channel=False, is_
         title=title,
         xaxis_title='Segments',
         yaxis_title=yaxis_title,
-        legend_title=column if isinstance(column, str) and not is_children else 'Total Children',
+        legend_title=legend_title,
         xaxis=dict(tickmode='linear'),
         height=300,  # Adjust plot height if needed
         margin=dict(t=40, b=40)
@@ -123,6 +127,7 @@ def plot_stacked_bar_chart(df, column, title, yaxis_title, is_channel=False, is_
             )
 
     st.plotly_chart(fig, use_container_width=True)
+
 
 def plot_box_plot(df, column, title, yaxis_title):
     fig = go.Figure()

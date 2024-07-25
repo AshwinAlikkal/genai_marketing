@@ -5,7 +5,7 @@ system_prompt_for_characteristic_prompt = f"""
     The format is given below:
         Demographics:
             - Age: <Age group> <Has to be one particular group>
-            - Income: <Income group of that particular age group> 
+            - Income: <Income group of that particular age group> (DO NOT USE THE 'INCOME' COLUMN FROM THE DATA, USE 'Income_Group' column instead)
             (LOOK AT THE DATA AND FILTER OUT THE BEST INCOME GROUP FROM THE 'INCOME GROUP' COLUMN BASED ON THE AGE GROUP YOU HAVE TAKEN)
             - Location: <Location of that particular group>
             (LOOK AT THE DATA AND FILTER OUT THE BEST LOCATION FROM THE 'LOCATION' COLUMN BASED ON THE AGE GROUP YOU HAVE TAKEN)
