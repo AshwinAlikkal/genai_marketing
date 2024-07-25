@@ -8,7 +8,6 @@ from io import BytesIO
 from langchain.schema import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 import prompts
-import config
 import plotly.graph_objects as go
 import streamlit as st
 
@@ -30,7 +29,7 @@ def llm_chat_model():
     return llm
 
 
-def cluster_creation(df):
+def cluster_creation(df, k):
     # Columns used for clustering 
     cols_for_clustering = ["Country", 
                            "Education", 
@@ -47,7 +46,7 @@ def cluster_creation(df):
     df_cluster_std = pd.DataFrame(scale_norm.fit_transform(df_cluster), columns=df_cluster.columns)
     
     # Perform K-means clustering with k clusters
-    kmeans = KMeans(n_clusters = config.k, random_state=0)
+    kmeans = KMeans(n_clusters = k, random_state=0)
     df['Cluster'] = kmeans.fit_predict(df_cluster_std)
     df["Cluster"] += 1
     return df
@@ -104,7 +103,7 @@ def plot_stacked_bar_chart(df, column, title, yaxis_title, is_channel=False, is_
     fig.update_layout(
         barmode='stack',
         title=title,
-        xaxis_title='Cluster',
+        xaxis_title='Segments',
         yaxis_title=yaxis_title,
         legend_title=column if isinstance(column, str) and not is_children else 'Total Children',
         xaxis=dict(tickmode='linear'),
@@ -133,7 +132,7 @@ def plot_box_plot(df, column, title, yaxis_title):
         cluster_data = df[df['Cluster'] == cluster][column]
         fig.add_trace(go.Box(
             y=cluster_data, 
-            name=f'Cluster {cluster}', 
+            name=f'Segment {cluster}', 
             marker=dict(size=8)  # Increase the size of the box plot markers
         ))
 
